@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 
- pulbic class Category extends BaseModel{
+ public class Category extends BaseModel{
     private String name;
     private String description;
 
