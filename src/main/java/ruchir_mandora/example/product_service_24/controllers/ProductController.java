@@ -1,7 +1,7 @@
-package com.example.product_service_24.controllers;
+package ruchir_mandora.example.product_service_24.controllers;
 
-import com.example.product_service_24.models.Product;
-import com.example.product_service_24.services.ProductService;
+import ruchir_mandora.example.product_service_24.models.Product;
+import ruchir_mandora.example.product_service_24.services.ProductService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
