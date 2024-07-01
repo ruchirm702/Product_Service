@@ -1,4 +1,4 @@
-package ruchir_mandora.example.product_service_24;
+package ruchir.dev.product_service_24;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

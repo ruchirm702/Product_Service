@@ -1,4 +1,4 @@
-package ruchir_mandora.example.product_service_24.controllers;
+package ruchir.dev.product_service_24.controllers;
 
 
 import org.springframework.web.bind.annotation.GetMapping;

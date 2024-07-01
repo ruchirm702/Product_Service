@@ -1,6 +1,6 @@
-package ruchir_mandora.example.product_service_24.services;
+package ruchir.dev.product_service_24.services;
 
-import ruchir_mandora.example.product_service_24.models.Product;
+import ruchir.dev.product_service_24.models.Product;
 import java.util.List;
 
 public interface ProductService {

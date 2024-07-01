@@ -1,4 +1,4 @@
-package ruchir_mandora.example.product_service_24.configuartions;
+package ruchir.dev.product_service_24.configuartions;
 
 
 import org.springframework.context.annotation.Bean;

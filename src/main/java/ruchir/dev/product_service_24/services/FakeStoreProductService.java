@@ -1,8 +1,8 @@
-package ruchir_mandora.example.product_service_24.services;
+package ruchir.dev.product_service_24.services;
 
-import ruchir_mandora.example.product_service_24.DTOs.FakeStoreProductDTO;
-import ruchir_mandora.example.product_service_24.models.Category;
-import ruchir_mandora.example.product_service_24.models.Product;
+import ruchir.dev.product_service_24.DTOs.FakeStoreProductDTO;
+import ruchir.dev.product_service_24.models.Category;
+import ruchir.dev.product_service_24.models.Product;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 

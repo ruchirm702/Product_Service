@@ -1,4 +1,4 @@
-package ruchir_mandora.example.product_service_24.models;
+package ruchir.dev.product_service_24.models;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,4 +1,4 @@
-package ruchir_mandora.example.product_service_24;
+package ruchir.dev.product_service_24;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
