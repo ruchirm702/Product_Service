@@ -15,17 +15,23 @@ import java.util.List;
 
 public class ProductController {
 
-    private ProductService productService;
+    private ProductService productService; // Declares a private member variable for the ProductService
+
+
+    // Constructor for dependency injection of the ProductService
     public ProductController(ProductService productService) {
         this.productService = productService;
     }
 
-    // http://locathost:8080/products/id
+    // Endpoint to get a product by its ID
+    // Accessible at http://localhost:8080/products/{id}
     @GetMapping("/{id}")
     public Product getProductById(@PathVariable("id") Long id ) {
         return productService.getSingleProduct(id);
     }
 
+    // Endpoint to get all products
+    // Accessible at http://localhost:8080/products
     @GetMapping()
     public List<Product> getAllProducts(){
         return productService.getAllProducts();

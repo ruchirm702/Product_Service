@@ -10,36 +10,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Service
+@Service // Marks this class as a service component in Spring
 public class FakeStoreProductService implements ProductService {
-    private RestTemplate restTemplate;
+    private RestTemplate restTemplate; // Declares a private RestTemplate member for making HTTP calls
 
-
+    // Constructor for dependency injection of RestTemplate
     public FakeStoreProductService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
+
+    // Implementation of the getSingleProduct method from the ProductService interface
     @Override
     public Product getSingleProduct(Long productId) {
-
         //Call FakeStore to fetch the Product with given id ---> via Http Call
         FakeStoreProductDTO fakeStoreProductDTO = restTemplate.getForObject
                 ("https://fakestoreapi.com/products/" + productId ,
                         FakeStoreProductDTO.class);
 
-
-
+        // Convert the received FakeStoreProductDTO to a Product and return it
         return  convertFakeStoreProductToProduct(fakeStoreProductDTO);
     }
 
+
+
+    // Implementation of the getAllProducts method from the ProductService interface
     @Override
     public List<Product> getAllProducts() {
+        // Call FakeStore API to fetch all products via HTTP call
         FakeStoreProductDTO[] fakeStoreProductDTOS = restTemplate.getForObject(
                 "https://fakestoreapi.com/products",
                 FakeStoreProductDTO[].class
         );
 
-        //Convert List of FakeStoreProductDTO into List of product.
+        // Convert the array of FakeStoreProductDTO into a list of Product
         List<Product> products = new ArrayList<>();
         for(FakeStoreProductDTO fakeStoreProductDTO : fakeStoreProductDTOS ){
             products.add(convertFakeStoreProductToProduct(fakeStoreProductDTO));
@@ -47,6 +51,10 @@ public class FakeStoreProductService implements ProductService {
 
         return products;
     }
+
+
+
+    // Helper method to convert FakeStoreProductDTO into Product
     private Product convertFakeStoreProductToProduct(FakeStoreProductDTO fakeStoreProductDTO){
         //Convert FakeStoreProductDTO into Product.
         Product product = new Product();
