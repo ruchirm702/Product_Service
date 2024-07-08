@@ -1,11 +1,8 @@
 package ruchir.dev.product_service_24.controllers;
 
+import org.springframework.web.bind.annotation.*;
 import ruchir.dev.product_service_24.models.Product;
 import ruchir.dev.product_service_24.services.ProductService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 
 import java.util.List;
@@ -32,9 +29,24 @@ public class ProductController {
 
     // Endpoint to get all products
     // Accessible at http://localhost:8080/products
-    @GetMapping()
+    @GetMapping() //No input parameter required
     public List<Product> getAllProducts(){
         return productService.getAllProducts();
+    }
+
+    public void deleteProduct(Long productId){
+
+    }
+
+
+    @PatchMapping("/{id}")
+    public Product updateProduct(@PathVariable("id") Long id ,@RequestBody Product product){
+        return productService.updateProduct(id , product);
+    }
+
+    @PutMapping("/{id}")
+    public Product replaceProduct(@PathVariable("id") Long id ,@RequestBody Product product){
+        return null;
     }
 
 

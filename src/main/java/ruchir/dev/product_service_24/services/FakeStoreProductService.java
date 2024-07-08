@@ -1,5 +1,8 @@
 package ruchir.dev.product_service_24.services;
 
+import org.springframework.http.HttpMethod;
+import org.springframework.web.client.HttpMessageConverterExtractor;
+import org.springframework.web.client.RequestCallback;
 import ruchir.dev.product_service_24.DTOs.FakeStoreProductDTO;
 import ruchir.dev.product_service_24.models.Category;
 import ruchir.dev.product_service_24.models.Product;
@@ -42,6 +45,11 @@ public class FakeStoreProductService implements ProductService {
                 "https://fakestoreapi.com/products",
                 FakeStoreProductDTO[].class
         );
+        // Using an array of FakeStoreProductDTO because of type erasure
+        // Type erasure removes generic type information at runtime, making it difficult to handle generics
+        // Arrays retain their type information at runtime, allowing RestTemplate to correctly infer the type
+
+
 
         // Convert the array of FakeStoreProductDTO into a list of Product
         List<Product> products = new ArrayList<>();
@@ -53,6 +61,31 @@ public class FakeStoreProductService implements ProductService {
     }
 
 
+    //Partial Update
+    @Override
+    public Product updateProduct(Long id, Product product) {
+        //PATCH call
+        RequestCallback requestCallback = restTemplate.httpEntityCallback(product ,FakeStoreProductDTO.class);
+        HttpMessageConverterExtractor<FakeStoreProductDTO> responseExtractor =
+                new HttpMessageConverterExtractor<>(FakeStoreProductDTO.class, restTemplate.getMessageConverters());
+
+        FakeStoreProductDTO response =restTemplate.execute("https://fakestoreapi.com/products/" + id ,
+                HttpMethod.PATCH, requestCallback, responseExtractor);
+
+        return  convertFakeStoreProductToProduct(response);
+
+    }
+
+    @Override
+    public Product replaceProduct(Long id, Product product) {
+        //PUT Call
+        return null;
+    }
+
+    @Override
+    public void deleteProduct(Long id) {
+
+    }
 
     // Helper method to convert FakeStoreProductDTO into Product
     private Product convertFakeStoreProductToProduct(FakeStoreProductDTO fakeStoreProductDTO){
