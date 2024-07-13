@@ -1,5 +1,7 @@
 package ruchir.dev.product_service_24.controllers;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ruchir.dev.product_service_24.models.Product;
 import ruchir.dev.product_service_24.services.ProductService;
@@ -23,8 +25,12 @@ public class ProductController {
     // Endpoint to get a product by its ID
     // Accessible at http://localhost:8080/products/{id}
     @GetMapping("/{id}")
-    public Product getProductById(@PathVariable("id") Long id ) {
-        return productService.getSingleProduct(id);
+    public ResponseEntity<Product> getProductById(@PathVariable("id") Long id ) {
+        ResponseEntity<Product> responseEntity = new ResponseEntity<>(
+                productService.getSingleProduct(id), HttpStatus.OK
+        );
+
+        return responseEntity;
     }
 
     // Endpoint to get all products
