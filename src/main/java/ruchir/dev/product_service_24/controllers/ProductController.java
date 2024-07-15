@@ -42,6 +42,7 @@ public class ProductController {
         return responseEntity;
     }
 
+
     // Endpoint to get all products
     // Accessible at http://localhost:8080/products
     @GetMapping() //No input parameter required
