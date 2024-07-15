@@ -10,6 +10,6 @@ import lombok.Setter;
 @Entity(name = "Joined_Students")
 @PrimaryKeyJoinColumn(name = "user_id")
 
-public class Student extends User{
+public class  Student extends User{
     private String batch ;
 }

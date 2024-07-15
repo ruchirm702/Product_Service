@@ -26,6 +26,9 @@ public class FakeStoreProductService implements ProductService {
     // Implementation of the getSingleProduct method from the ProductService interface
     @Override
     public Product getSingleProduct(Long productId) {
+
+//        throw new RuntimeException("Something went wrong");
+
         //Call FakeStore to fetch the Product with given id ---> via Http Call
         FakeStoreProductDTO fakeStoreProductDTO = restTemplate.getForObject
                 ("https://fakestoreapi.com/products/" + productId ,
