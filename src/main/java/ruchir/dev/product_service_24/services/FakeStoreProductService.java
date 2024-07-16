@@ -4,6 +4,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.web.client.HttpMessageConverterExtractor;
 import org.springframework.web.client.RequestCallback;
 import ruchir.dev.product_service_24.DTOs.FakeStoreProductDTO;
+import ruchir.dev.product_service_24.Exceptions.ProductNotFoundException;
 import ruchir.dev.product_service_24.models.Category;
 import ruchir.dev.product_service_24.models.Product;
 import org.springframework.stereotype.Service;
@@ -25,14 +26,18 @@ public class FakeStoreProductService implements ProductService {
 
     // Implementation of the getSingleProduct method from the ProductService interface
     @Override
-    public Product getSingleProduct(Long productId) {
+    public Product getSingleProduct(Long productId) throws ProductNotFoundException{
 
-//        throw new RuntimeException("Something went wrong");
+
 
         //Call FakeStore to fetch the Product with given id ---> via Http Call
         FakeStoreProductDTO fakeStoreProductDTO = restTemplate.getForObject
                 ("https://fakestoreapi.com/products/" + productId ,
                         FakeStoreProductDTO.class);
+
+        if (fakeStoreProductDTO == null) {
+            throw new ProductNotFoundException("Product with id " + productId + " doesn't exist");
+        }
 
         // Convert the received FakeStoreProductDTO to a Product and return it
         return  convertFakeStoreProductToProduct(fakeStoreProductDTO);
