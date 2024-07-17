@@ -1,5 +1,6 @@
 package ruchir.dev.product_service_24.controllers;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,8 @@ public class ProductController {
 
 
     // Constructor for dependency injection of the ProductService
-    public ProductController(ProductService productService) {
+    public ProductController(@Qualifier("Self_Product_Service")
+            ProductService productService) {
         this.productService = productService;
     }
 
@@ -43,8 +45,10 @@ public class ProductController {
         return productService.getAllProducts();
     }
 
-    public void deleteProduct(Long productId){
 
+
+    public void deleteProduct(Long productId){
+        productService.deleteProduct(productId);
     }
 
 
@@ -58,7 +62,8 @@ public class ProductController {
         return null;
     }
 
-
-
-
+    @PostMapping
+    public Product addNewProduct(@RequestBody Product product){
+        return productService.addNewProduct(product);
+    }
  }

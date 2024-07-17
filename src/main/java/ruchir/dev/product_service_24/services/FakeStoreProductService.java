@@ -1,5 +1,8 @@
 package ruchir.dev.product_service_24.services;
 
+import jakarta.persistence.PrimaryKeyJoinColumn;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.client.HttpMessageConverterExtractor;
 import org.springframework.web.client.RequestCallback;
@@ -13,8 +16,12 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
+// Marks this class as a service component in Spring
+@Service("Fakestore_Product_Service")
+//@Primary
 
-@Service // Marks this class as a service component in Spring
+//@Qualifier("fakeStoreProductService")
+
 public class FakeStoreProductService implements ProductService {
     private RestTemplate restTemplate; // Declares a private RestTemplate member for making HTTP calls
 
@@ -93,6 +100,11 @@ public class FakeStoreProductService implements ProductService {
     @Override
     public void deleteProduct(Long id) {
 
+    }
+
+    @Override
+    public Product addNewProduct(Product product) {
+        return null;
     }
 
     // Helper method to convert FakeStoreProductDTO into Product
