@@ -1,8 +1,10 @@
 package ruchir.dev.product_service_24.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import ruchir.dev.product_service_24.models.Product;
+import ruchir.dev.product_service_24.projections.ProductWithIdAndTitle;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +26,15 @@ public interface Product_Repository extends JpaRepository<Product, Long> {
 
     @Override
     List<Product> findAll();
+
+    //HQL
+    @Query("select p.id as id, p.title as title from Product p where p.id = 1")
+    List<ProductWithIdAndTitle> randomSearchMethod();
+
+    //SQL
+    @Query(value = "select p.id as id, p.title as title from product p where p.id = :productId", nativeQuery = true)
+    List<ProductWithIdAndTitle>  randomSearchMethodSQL(Long productId);
+
 }
 
 
