@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import ruchir.dev.product_service_24.models.Product;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface Product_Repository extends JpaRepository<Product, Long> {
@@ -17,7 +18,9 @@ public interface Product_Repository extends JpaRepository<Product, Long> {
 
     List<Product> findByTitleLikeIgnoreCase(String word); // wil make case insensitive.
 
+    List<Product> findDistinctTop5ByTitleLikeIgnoreCase(String word);// Select * from product where title LIKE ' ' Limit 5
 
+    Optional<Product> findById(Long id );
 
 }
 

@@ -7,22 +7,30 @@ import ruchir.dev.product_service_24.models.Product;
 import ruchir.dev.product_service_24.repositories.Product_Repository;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service("Self_Product_Service")
 //@Qualifier("Self_Product_Service")
 
 public class Self_Product_Service implements ProductService{
-    private Product_Repository product_repository;
+    private Product_Repository product_Repository;
 
-    public Self_Product_Service(Product_Repository product_repository) {
-        this.product_repository = product_repository;
-     }
+    public Self_Product_Service(Product_Repository product_Repository) {
+        this.product_Repository = product_Repository;
+    }
 
 
     @Override
     public Product getSingleProduct(Long productId) throws ProductNotFoundException {
         // Make a call to Database to fetch a product with Given Id
 
-        return null;
+        Optional<Product> productOptional = product_Repository.findById(productId);
+
+        if(productOptional.isEmpty()){
+            throw new ProductNotFoundException("Product with id : " + productId + "doesn't exist");
+        }
+
+        return productOptional.get();
     }
 
     @Override
