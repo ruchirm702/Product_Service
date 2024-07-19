@@ -44,15 +44,34 @@ public class Self_Product_Service implements ProductService{
         return product_Repository.findAll();
     }
 
+    //PATCH
     @Override
-    public Product updateProduct(Long id, Product product) {
-        return null;
+    public Product updateProduct(Long id, Product product) throws ProductNotFoundException {
+
+        Optional<Product> optionalProduct = product_Repository.findById(id);
+
+        if (optionalProduct.isEmpty()) {
+            throw new ProductNotFoundException("Product with id : " + id + " doesn't exist");
+        }
+
+        Product productInDB = optionalProduct.get();
+
+        if (product.getTitle() != null) {
+            productInDB.setTitle(product.getTitle());
+        }
+
+        if (product.getPrice() != null) {
+            productInDB.setPrice(product.getPrice());
+        }
+
+        return product_Repository.save(productInDB);
     }
 
     @Override
     public Product replaceProduct(Long id, Product product) {
         return null;
     }
+
 
     @Override
     public void deleteProduct(Long id) {

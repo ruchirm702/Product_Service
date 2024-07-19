@@ -53,9 +53,9 @@ public class ProductController {
         productService.deleteProduct(productId);
     }
 
-
+    //PATCH
     @PatchMapping("/{id}")
-    public Product updateProduct(@PathVariable("id") Long id ,@RequestBody Product product){
+    public Product updateProduct(@PathVariable("id") Long id ,@RequestBody Product product)  throws ProductNotFoundException{
         return productService.updateProduct(id , product);
     }
 
