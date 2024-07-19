@@ -59,9 +59,11 @@ public class ProductController {
         return productService.updateProduct(id , product);
     }
 
+    //PUT
     @PutMapping("/{id}")
-    public Product replaceProduct(@PathVariable("id") Long id ,@RequestBody Product product){
-        return null;
+    public ResponseEntity<Product> replaceProduct(@PathVariable("id") Long id, @RequestBody Product product) throws ProductNotFoundException {
+        Product updatedProduct = productService.replaceProduct(id, product);
+        return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
     }
 
     @PostMapping

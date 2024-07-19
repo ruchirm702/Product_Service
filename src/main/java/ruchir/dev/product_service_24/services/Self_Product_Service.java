@@ -68,8 +68,25 @@ public class Self_Product_Service implements ProductService{
     }
 
     @Override
-    public Product replaceProduct(Long id, Product product) {
-        return null;
+    public Product replaceProduct(Long id, Product product) throws ProductNotFoundException{
+        Optional<Product> optionalProduct = product_Repository.findById(id);
+        if (optionalProduct.isEmpty()) {
+            throw new ProductNotFoundException("Product with id : " + id + " doesn't exist");
+        }
+        Product existingProduct = optionalProduct.get();
+
+        // Only update the fields that are not null or empty
+        if (product.getTitle() != null && !product.getTitle().isEmpty()) {
+            existingProduct.setTitle(product.getTitle());
+        }
+        if (product.getPrice() != null) {
+            existingProduct.setPrice(product.getPrice());
+        }
+        if (product.getCategory() != null) {
+            existingProduct.setCategory(product.getCategory());
+        }
+
+        return product_Repository.save(existingProduct);
     }
 
 
