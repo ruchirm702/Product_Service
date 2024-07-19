@@ -2,8 +2,11 @@ package ruchir.dev.product_service_24.services;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 import ruchir.dev.product_service_24.Exceptions.ProductNotFoundException;
+import ruchir.dev.product_service_24.models.Category;
 import ruchir.dev.product_service_24.models.Product;
+import ruchir.dev.product_service_24.repositories.Category_Repository;
 import ruchir.dev.product_service_24.repositories.Product_Repository;
 
 import java.util.List;
@@ -13,10 +16,13 @@ import java.util.Optional;
 //@Qualifier("Self_Product_Service")
 
 public class Self_Product_Service implements ProductService{
+    private final Category_Repository category_Repository;
     private Product_Repository product_Repository;
+    private Category_Repository category_repository;
 
-    public Self_Product_Service(Product_Repository product_Repository) {
+    public Self_Product_Service(Product_Repository product_Repository, Category_Repository category_Repository) {
         this.product_Repository = product_Repository;
+        this.category_Repository = category_Repository;
     }
 
 
@@ -54,7 +60,13 @@ public class Self_Product_Service implements ProductService{
     }
 
     @Override
-    public Product addNewProduct(Product product) {
-        return null;
+    public Product addNewProduct(@RequestBody Product product) {
+        Category category = product.getCategory();
+
+        if(category.getId() == null){
+            //We need to create a new category object in the DataBase first
+            category = category_Repository.save(category);
+        }
+        return product_Repository.save(product);
     }
 }
