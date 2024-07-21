@@ -27,11 +27,11 @@ public interface Product_Repository extends JpaRepository<Product, Long> {
     @Override
     List<Product> findAll();
 
-    //HQL
+    // HQL query to select product ID and title where ID is 1
     @Query("select p.id as id, p.title as title from Product p where p.id = 1")
     List<ProductWithIdAndTitle> randomSearchMethod();
 
-    //SQL
+    // SQL query to select product ID and title by product ID
     @Query(value = "select p.id as id, p.title as title from product p where p.id = :productId", nativeQuery = true)
     List<ProductWithIdAndTitle>  randomSearchMethodSQL(Long productId);
 

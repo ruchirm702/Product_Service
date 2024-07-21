@@ -46,26 +46,34 @@ public class ProductController {
     }
 
 
-
-
+    // Endpoint to delete a product by its ID
+    // Accessible at http://localhost:8080/products/{id}
     @DeleteMapping("/{id}")
     public void deleteProduct(@PathVariable("id") Long productId){
         productService.deleteProduct(productId);
     }
 
+
     //PATCH
+    // Endpoint to partially update a product by its ID
+    // Accessible at http://localhost:8080/products/{id}
     @PatchMapping("/{id}")
     public Product updateProduct(@PathVariable("id") Long id ,@RequestBody Product product)  throws ProductNotFoundException{
         return productService.updateProduct(id , product);
     }
 
     //PUT
+    // Endpoint to fully replace a product by its ID
+    // Accessible at http://localhost:8080/products/{id}
     @PutMapping("/{id}")
     public ResponseEntity<Product> replaceProduct(@PathVariable("id") Long id, @RequestBody Product product) throws ProductNotFoundException {
         Product updatedProduct = productService.replaceProduct(id, product);
         return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
     }
 
+    //Post
+    // Endpoint to add a new product
+    // Accessible at http://localhost:8080/products
     @PostMapping
     public Product addNewProduct(@RequestBody Product product){
         return productService.addNewProduct(product);

@@ -12,20 +12,22 @@ import ruchir.dev.product_service_24.repositories.Product_Repository;
 import java.util.List;
 import java.util.Optional;
 
-@Service("Self_Product_Service")
+@Service("Self_Product_Service") // Marks this class as a Spring service
 //@Qualifier("Self_Product_Service")
 
 public class Self_Product_Service implements ProductService{
     private final Category_Repository category_Repository;
-    private Product_Repository product_Repository;
-    private Category_Repository category_repository;
 
+    private Product_Repository product_Repository;      // Repository for Product entity
+    private Category_Repository category_repository;    // Repository for Category entity
+
+    // Constructor for dependency injection
     public Self_Product_Service(Product_Repository product_Repository, Category_Repository category_Repository) {
         this.product_Repository = product_Repository;
         this.category_Repository = category_Repository;
     }
 
-
+    // Fetch a single product by ID
     @Override
     public Product getSingleProduct(Long productId) throws ProductNotFoundException {
         // Make a call to Database to fetch a product with Given Id
@@ -39,12 +41,13 @@ public class Self_Product_Service implements ProductService{
         return productOptional.get();
     }
 
+    // Fetch all products
     @Override
     public List<Product> getAllProducts() {
         return product_Repository.findAll();
     }
 
-    //PATCH
+    //PATCH  : Partially update a product by ID
     @Override
     public Product updateProduct(Long id, Product product) throws ProductNotFoundException {
 
@@ -56,6 +59,7 @@ public class Self_Product_Service implements ProductService{
 
         Product productInDB = optionalProduct.get();
 
+        // Update fields only if they are not null
         if (product.getTitle() != null) {
             productInDB.setTitle(product.getTitle());
         }
@@ -67,6 +71,7 @@ public class Self_Product_Service implements ProductService{
         return product_Repository.save(productInDB);
     }
 
+    // Replace a product by ID
     @Override
     public Product replaceProduct(Long id, Product product) throws ProductNotFoundException{
         Optional<Product> optionalProduct = product_Repository.findById(id);
@@ -89,18 +94,21 @@ public class Self_Product_Service implements ProductService{
         return product_Repository.save(existingProduct);
     }
 
-
+    // Delete a product by ID
     @Override
     public void deleteProduct(Long id) {
         product_Repository.deleteById(id);
     }
 
+    // Add a new product
     @Override
     public Product addNewProduct(@RequestBody Product product) {
         Category category = product.getCategory();
 
+
         if(category.getId() == null){
             //We need to create a new category object in the DataBase first
+            // Save new category if ID is not present
             category = category_Repository.save(category);
         }
         return product_Repository.save(product);

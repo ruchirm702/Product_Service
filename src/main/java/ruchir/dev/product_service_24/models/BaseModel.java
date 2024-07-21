@@ -10,11 +10,11 @@ import java.util.Date;
 
 @Getter
 @Setter
-@MappedSuperclass
+@MappedSuperclass // Indicates that this class is a base class for entities
 
 public class BaseModel {
-    @Id // for Primary key
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // for AUTO-INCREMENT
+    @Id // Marks this field as the primary key
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // // Auto-increment  for the primary key
     private Long id;
     private Date created_at;
     private Date updated_at;

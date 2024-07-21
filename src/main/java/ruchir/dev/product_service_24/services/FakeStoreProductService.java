@@ -23,19 +23,17 @@ import java.util.List;
 //@Qualifier("fakeStoreProductService")
 
 public class FakeStoreProductService implements ProductService {
-    private RestTemplate restTemplate; // Declares a private RestTemplate member for making HTTP calls
+    private RestTemplate restTemplate; // RestTemplate for HTTP calls
 
-    // Constructor for dependency injection of RestTemplate
+    // Constructor for dependency injection
     public FakeStoreProductService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
 
-    // Implementation of the getSingleProduct method from the ProductService interface
+    // Fetch a single product by ID
     @Override
     public Product getSingleProduct(Long productId) throws ProductNotFoundException{
-
-
 
         //Call FakeStore to fetch the Product with given id ---> via Http Call
         FakeStoreProductDTO fakeStoreProductDTO = restTemplate.getForObject
@@ -46,15 +44,16 @@ public class FakeStoreProductService implements ProductService {
             throw new ProductNotFoundException("Product with id " + productId + " doesn't exist");
         }
 
-        // Convert the received FakeStoreProductDTO to a Product and return it
+        // Convert DTO to Product and return
         return  convertFakeStoreProductToProduct(fakeStoreProductDTO);
     }
 
 
 
-    // Implementation of the getAllProducts method from the ProductService interface
+    // Fetch all products
     @Override
     public List<Product> getAllProducts() {
+
         // Call FakeStore API to fetch all products via HTTP call
         FakeStoreProductDTO[] fakeStoreProductDTOS = restTemplate.getForObject(
                 "https://fakestoreapi.com/products",
@@ -76,7 +75,7 @@ public class FakeStoreProductService implements ProductService {
     }
 
 
-    //Partial Update
+    //Partial Update :  Update a product partially
     @Override
     public Product updateProduct(Long id, Product product) {
         //PATCH call

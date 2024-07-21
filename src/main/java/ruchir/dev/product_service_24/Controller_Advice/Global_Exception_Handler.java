@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @ControllerAdvice
 public class Global_Exception_Handler {
 
-    @ExceptionHandler(ArithmeticException.class)
+    @ExceptionHandler(ArithmeticException.class) // Handle arithmetic exceptions
     public ResponseEntity<ExceptionDTO> handleArithmeticException(ArithmeticException ex) {
         ExceptionDTO exceptionDTO = new ExceptionDTO();
         exceptionDTO.setTimestamp(LocalDateTime.now());
@@ -29,7 +29,7 @@ public class Global_Exception_Handler {
         return response;
     }
 
-    @ExceptionHandler(ArrayIndexOutOfBoundsException.class)
+    @ExceptionHandler(ArrayIndexOutOfBoundsException.class) // Handle array index out of bounds exceptions
     public ResponseEntity<ExceptionDTO> handleArrayIndexOutOfBoundsException(ArrayIndexOutOfBoundsException ex) {
         ExceptionDTO exceptionDTO = new ExceptionDTO();
         exceptionDTO.setTimestamp(LocalDateTime.now());
@@ -46,7 +46,7 @@ public class Global_Exception_Handler {
         return response;
     }
 
-    @ExceptionHandler(ProductNotFoundException.class)
+    @ExceptionHandler(ProductNotFoundException.class) // Handle product not found exceptions
     public ResponseEntity<ExceptionDTO> handleProductNotFoundException(ProductNotFoundException ex) {
         ExceptionDTO exceptionDTO = new ExceptionDTO();
         exceptionDTO.setTimestamp(LocalDateTime.now());

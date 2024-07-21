@@ -11,13 +11,14 @@ import java.util.List;
 
 @Getter
 @Setter
-@Entity
+@Entity // Marks this class as a JPA entity
 
  public class Category extends BaseModel{
     private String name;
     private String description;
 
-    @OneToMany(mappedBy = "category" , fetch = FetchType.EAGER)
+    // List of products associated with this category
+    @OneToMany(mappedBy = "category" , fetch = FetchType.EAGER) // one-to-many relationship with the Product entity
     private List<Product> products;
 
 

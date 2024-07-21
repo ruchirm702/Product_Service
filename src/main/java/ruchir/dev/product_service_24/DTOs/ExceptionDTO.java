@@ -8,9 +8,9 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class ExceptionDTO {
-    private LocalDateTime timestamp;
-    private int status;
-    private String error;
+    private LocalDateTime timestamp;    // Timestamp of when the exception occurred
+    private int status;                // HTTP status code of the response
+    private String error;             // Error type
     private String message;
     private String solution;
 }
