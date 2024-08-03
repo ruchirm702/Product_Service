@@ -3,6 +3,8 @@ package ruchir.dev.product_service_24.services;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.client.HttpMessageConverterExtractor;
 import org.springframework.web.client.RequestCallback;
@@ -52,7 +54,7 @@ public class FakeStoreProductService implements ProductService {
 
     // Fetch all products
     @Override
-    public List<Product> getAllProducts() {
+    public Page<Product> getAllProducts(int pageNumber, int pageSize) {
 
         // Call FakeStore API to fetch all products via HTTP call
         FakeStoreProductDTO[] fakeStoreProductDTOS = restTemplate.getForObject(
@@ -71,7 +73,7 @@ public class FakeStoreProductService implements ProductService {
             products.add(convertFakeStoreProductToProduct(fakeStoreProductDTO));
         }
 
-        return products;
+        return  new PageImpl<>(products);
     }
 
 

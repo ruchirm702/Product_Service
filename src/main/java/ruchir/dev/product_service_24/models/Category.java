@@ -18,8 +18,8 @@ import java.util.List;
     private String description;
 
     // List of products associated with this category
-    @OneToMany(mappedBy = "category" , fetch = FetchType.EAGER) // one-to-many relationship with the Product entity
-    private List<Product> products;
+//    @OneToMany(mappedBy = "category" , fetch = FetchType.EAGER) // one-to-many relationship with the Product entity
+//    private List<Product> products;
 
 
 }

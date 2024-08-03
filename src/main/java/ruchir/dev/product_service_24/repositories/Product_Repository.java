@@ -1,5 +1,7 @@
 package ruchir.dev.product_service_24.repositories;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -25,7 +27,7 @@ public interface Product_Repository extends JpaRepository<Product, Long> {
     Optional<Product> findById(Long id );
 
     @Override
-    List<Product> findAll();
+    Page<Product> findAll(Pageable pageable);
 
     // HQL query to select product ID and title where ID is 1
     @Query("select p.id as id, p.title as title from Product p where p.id = 1")
@@ -36,5 +38,3 @@ public interface Product_Repository extends JpaRepository<Product, Long> {
     List<ProductWithIdAndTitle>  randomSearchMethodSQL(Long productId);
 
 }
-
-

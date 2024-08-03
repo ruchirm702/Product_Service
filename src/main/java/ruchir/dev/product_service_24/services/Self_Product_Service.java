@@ -1,6 +1,10 @@
 package ruchir.dev.product_service_24.services;
 
-import org.springframework.beans.factory.annotation.Qualifier;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import ruchir.dev.product_service_24.Exceptions.ProductNotFoundException;
@@ -9,7 +13,7 @@ import ruchir.dev.product_service_24.models.Product;
 import ruchir.dev.product_service_24.repositories.Category_Repository;
 import ruchir.dev.product_service_24.repositories.Product_Repository;
 
-import java.util.List;
+
 import java.util.Optional;
 
 @Service("Self_Product_Service") // Marks this class as a Spring service
@@ -43,9 +47,14 @@ public class Self_Product_Service implements ProductService{
 
     // Fetch all products
     @Override
-    public List<Product> getAllProducts() {
-        return product_Repository.findAll();
+    public Page<Product> getAllProducts(int pageNumber, int pageSize) {
+        Sort sort = Sort.by("price").descending().and(Sort.by("title").ascending());
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, sort);
+        return product_Repository.findAll(pageable);
     }
+
+
+
 
     //PATCH  : Partially update a product by ID
     @Override
