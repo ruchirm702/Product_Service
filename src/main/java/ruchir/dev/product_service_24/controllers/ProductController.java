@@ -21,7 +21,7 @@ public class ProductController {
 
 
     // Constructor for dependency injection of the ProductService
-    public ProductController(@Qualifier("Self_Product_Service")
+    public ProductController(@Qualifier("Fakestore_Product_Service")
             ProductService productService) {
         this.productService = productService;
     }

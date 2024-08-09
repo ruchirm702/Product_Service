@@ -6,13 +6,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.io.Serializable;
 import java.util.Date;
 
 @Getter
 @Setter
 @MappedSuperclass // Indicates that this class is a base class for entities
 
-public class BaseModel {
+public class BaseModel  implements Serializable {
     @Id // Marks this field as the primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY) // // Auto-increment  for the primary key
     private Long id;

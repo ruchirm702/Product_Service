@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.client.HttpMessageConverterExtractor;
 import org.springframework.web.client.RequestCallback;
@@ -26,16 +27,27 @@ import java.util.List;
 
 public class FakeStoreProductService implements ProductService {
     private RestTemplate restTemplate; // RestTemplate for HTTP calls
+    private RedisTemplate<String, Object> redisTemplate;
 
     // Constructor for dependency injection
-    public FakeStoreProductService(RestTemplate restTemplate) {
+    public FakeStoreProductService(RestTemplate restTemplate,
+                                   RedisTemplate redisTemplate) {
         this.restTemplate = restTemplate;
+        this.redisTemplate = redisTemplate;
     }
 
 
     // Fetch a single product by ID
     @Override
     public Product getSingleProduct(Long productId) throws ProductNotFoundException{
+
+        //Try to fetch the product from redis.
+        Product product = (Product) redisTemplate.opsForHash().get("PRODUCTS", "PRODUCT_" + productId);
+
+        if (product != null) {
+            //Cache HIT
+            return product;
+        }
 
         //Call FakeStore to fetch the Product with given id ---> via Http Call
         FakeStoreProductDTO fakeStoreProductDTO = restTemplate.getForObject
@@ -47,7 +59,17 @@ public class FakeStoreProductService implements ProductService {
         }
 
         // Convert DTO to Product and return
-        return  convertFakeStoreProductToProduct(fakeStoreProductDTO);
+        //return  convertFakeStoreProductToProduct(fakeStoreProductDTO);
+
+        //Convert FakeStoreProductDto into Product.
+        //Cache MISS
+        product = convertFakeStoreProductToProduct(fakeStoreProductDTO);
+
+
+        //Store the product in redis.
+        redisTemplate.opsForHash().put("PRODUCTS", "PRODUCT_" + productId, product);
+
+        return product;
     }
 
 
