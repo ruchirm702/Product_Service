@@ -9,6 +9,7 @@
 ![FakeStore](https://img.shields.io/badge/FakeStore-FF4500?style=for-the-badge&logo=fakestore&logoColor=white)
 ![Razorpay](https://img.shields.io/badge/Razorpay-02042B?style=for-the-badge&logo=razorpay&logoColor=white)
 ![Stripe](https://img.shields.io/badge/Stripe-008CDD?style=for-the-badge&logo=stripe&logoColor=white)
+![Redis](https://img.shields.io/badge/Redis-FF0000?style=for-the-badge&logo=redis&logoColor=white)
 
 ## Project Description
 
